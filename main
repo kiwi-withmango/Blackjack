@@ -1,0 +1,60 @@
+import random
+print('Welcome to Blackjack!')
+cards = [2,3,4,5,6,7,8,9,10, 'A' , 'J', 'K', 'Q']
+convert = {
+    'J': 10,
+    'K': 10,
+    'Q': 10,
+    'A': 11
+}
+shown_ycards = random.sample(cards, 2)
+ycards = shown_ycards
+shown_ccards = random.sample(cards, 2)
+ccards = shown_ccards
+print(f'Your cards are {shown_ycards}')
+print(f"Computer's card is {shown_ccards[0]}")
+decision = input("Type 'y' to draw another card or type 'n' to pass: \n")
+def conv(c):
+    for _ in c:
+        if type(_) == str:
+            ind = c.index(_)
+            c[ind] = convert[c[ind]]
+def check(cc):
+    conv(cc)
+    x = 21 - sum(cc)
+    return x
+def ifA(ccc):
+    if 'A' in ccc:
+        totall = check(ccc)
+        if totall < 0:
+            totall += 10
+            return totall
+        else:
+            return totall
+    else:
+        return check(ccc)
+def win(c1,c2):
+    if type(c1) == list:
+        totalc1 = ifA(c1)
+    else:
+        totalc1 = c1
+    totalc2 = ifA(c2)
+    if totalc1 == totalc2 or totalc1 < 0 and totalc2 < 0:
+        print(f'Sorry its a draw. Your cards are {shown_ycards} and computer cards are {shown_ccards}.')
+    elif totalc1 < 0 or totalc2 < totalc1:
+        print(f'Sorry you lose. Your cards are {shown_ycards} and computer cards are {shown_ccards}.')
+    elif totalc2 < 0 or totalc1 < totalc2:
+        print(f'You win! Your cards are {shown_ycards} and computer cards are {shown_ccards}.')
+
+if decision == 'n':
+    print(f"Computer's cards are {shown_ccards}")
+    win(ycards, ccards)
+else:
+    new = random.choice(cards)
+    print(f'You pulled {new}')
+    ycards.append(new)
+    total = ifA(ycards)
+    if total < 0:
+        print(f'Sorry you lose, your cards are {shown_ycards}.')
+    else:
+        win(total, ccards)
