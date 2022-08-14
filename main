@@ -46,15 +46,23 @@ def win(c1,c2):
     elif totalc2 < 0 or totalc1 < totalc2:
         print(f'You win! Your cards are {shown_ycards} and computer cards are {shown_ccards}.')
 
-if decision == 'n':
-    print(f"Computer's cards are {shown_ccards}")
-    win(ycards, ccards)
-else:
-    new = random.choice(cards)
-    print(f'You pulled {new}')
-    ycards.append(new)
-    total = ifA(ycards)
-    if total < 0:
-        print(f'Sorry you lose, your cards are {shown_ycards}.')
+decision = input("Type 'y' to draw another card or type 'n' to pass: \n")
+
+def play(dec):
+    if dec == 'n':
+        print(f"Computer's cards are {shown_ccards}")
+        win(ycards, ccards)
     else:
-        win(total, ccards)
+        new = random.choice(cards)
+        print(f'You pulled {new}')
+        shown_ycards.append(new)
+        ycards.append(new)
+        total = ifA(ycards)
+        if total < 0:
+            print(f'Sorry you lose, your cards are {shown_ycards}.')
+        else:
+            cont = input('Would you like to pull another card?\n')
+            play(cont)
+
+
+play(decision)
