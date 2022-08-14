@@ -8,9 +8,9 @@ convert = {
     'A': 11
 }
 shown_ycards = random.sample(cards, 2)
-ycards = shown_ycards
+ycards = shown_ycards.copy()
 shown_ccards = random.sample(cards, 2)
-ccards = shown_ccards
+ccards = shown_ccards.copy()
 print(f'Your cards are {shown_ycards}')
 print(f"Computer's card is {shown_ccards[0]}")
 decision = input("Type 'y' to draw another card or type 'n' to pass: \n")
